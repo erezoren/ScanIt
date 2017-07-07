@@ -1,0 +1,4 @@
+﻿DB.HOST = "sql11.freemysqlhosting.net";
+DB.USER="sql11183823"
+DB.PASS="5662NrBxGX"
+DB.NAME="sql11183823"

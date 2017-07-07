@@ -10,9 +10,8 @@ namespace ScanIt
 {
     class QueryExec
     {
- 
-        private MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection("server=127.0.0.1;uid=root;" +
-            "pwd=;database=scanner;CharSet=utf8;");
+        private MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection("server="+ ScanItProperties.Instance.getPropValue("DB.HOST")+ ";uid="+ ScanItProperties.Instance.getPropValue("DB.USER") + ";" +
+            "pwd="+ ScanItProperties.Instance.getPropValue("DB.PASS") + ";database="+ ScanItProperties.Instance.getPropValue("DB.NAME") + ";CharSet=utf8;");
 
         public QueryExec()
         {
