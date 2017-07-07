@@ -52,7 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComboboxItem.cs" />
+    <Compile Include="Logic\ComboboxItem.cs" />
+    <Compile Include="Logic\Constants.cs" />
     <Compile Include="Logic\Invitor.cs" />
     <Compile Include="Logic\ScanItProperties.cs" />
     <Compile Include="Logic\QueryExec.cs" />

@@ -21,7 +21,7 @@ namespace ScanIt
 
         }
 
-        
+
         private void btnAddForm_Click(object sender, EventArgs e)
         {
             frm2.ShowDialog();
@@ -29,51 +29,55 @@ namespace ScanIt
 
         private void textBarcode_TextChanged(object sender, EventArgs e)
         {
-            textBox2.Clear();
-           String query =  Queries.getDetailsByBarcode(textBarcode.Text);
-           Dictionary<string, List<string>> dataMap =  queryExec.performSelectQuery(query);
-           if (dataMap.Count.Equals(0))
-           {
-               setNotFound("!!!!ברקוד לא נמצא במערכת");
-           }
+            richTextBox1.Clear();
+            String query = Queries.getDetailsByBarcode(textBarcode.Text);
+            Dictionary<string, List<string>> dataMap = queryExec.performSelectQuery(query);
+            if (textBarcode.Text.Trim().Equals(""))
+            {
+                setTextArea("", Constants.DEFAULT_COLOR);
+                return;
+            }
+            if (dataMap.Count.Equals(0))
+            {
+                setTextArea("ברקוד לא נמצא במערכת!!!!", Constants.ERR_COLOR);
+            }
 
-           else
-           {
-               handleResults(dataMap);
-               String markAsChecked = Queries.markBarcode(textBarcode.Text,true);
-               queryExec.performInsertQuery(markAsChecked);
-           }
+            else
+            {
+                handleResults(dataMap);
+                String markAsChecked = Queries.markBarcode(textBarcode.Text, true);
+                queryExec.performInsertQuery(markAsChecked);
+            }
 
         }
 
         private void handleResults(Dictionary<string, List<string>> dataMap)
         {
-            textBox2.BackColor = System.Drawing.ColorTranslator.FromHtml("#90EE90");
+           
 
             foreach (var pair in dataMap)
             {
                 string key = pair.Key;
                 if (key.Equals("checked"))
                 {
-                    if(pair.Value[0]=="True"){
-                        setNotFound("!!!ברקוד זה כבר נבדק");
+                    if (pair.Value[0] == "True")
+                    {
+                        setTextArea("ברקוד זה כבר נבדק!!!", Constants.WARN_COLOR);
                         return;
                     }
+                    else
+                    {
+                        setTextArea("", Constants.SUCCESS_COLOR);
+                    }
                 }
+               
                 if (key.Equals("invitor"))
                 {
-                    textBox2.AppendText(":שם המזמין");
-                    textBox2.AppendText(Environment.NewLine);
-                    textBox2.AppendText("==================================");
-                    textBox2.AppendText(Environment.NewLine);
-
+                    setHeader(richTextBox1,"שם המזמין:");
                 }
                 else if (key.Equals("invited"))
                 {
-                    textBox2.AppendText(":שם המוזמן");
-                    textBox2.AppendText(Environment.NewLine);
-                    textBox2.AppendText("==================================");
-                    textBox2.AppendText(Environment.NewLine);
+                    setHeader(richTextBox1,"שם המוזמן:");
                 }
                 else
                 {
@@ -84,20 +88,59 @@ namespace ScanIt
 
                 foreach (string val in values)
                 {
-                    textBox2.AppendText(val);
-                    textBox2.AppendText(Environment.NewLine);
+                    setBody(richTextBox1, val);                           
                 }
 
-                textBox2.AppendText(Environment.NewLine);
-                textBox2.AppendText(Environment.NewLine);
+                richTextBox1.AppendText(Environment.NewLine);
 
             }
         }
 
-        private void setNotFound(string message)
+        private void setHeader(RichTextBox rtb, string text)
         {
-            textBox2.BackColor = System.Drawing.ColorTranslator.FromHtml("#DC143C");
-            textBox2.AppendText(message);
+            setHeaderStyle(rtb);
+            setHeaderContent(rtb, text);
+        }
+
+        private void setHeaderContent(RichTextBox rtb,string text)
+        {
+            rtb.AppendText(text);
+            rtb.AppendText(Environment.NewLine);
+           // rtb.AppendText(Constants.HR);
+            rtb.AppendText(Environment.NewLine);
+        }
+        private void setHeaderStyle(RichTextBox rtb)
+        {
+            rtb.SelectionFont = new Font("Tahoma", 14, FontStyle.Bold|FontStyle.Underline);
+            rtb.SelectionColor = System.Drawing.Color.BlueViolet;
+        }
+
+
+
+        private void setBody(RichTextBox rtb, string text)
+        {
+            setBodyStyle(rtb);
+            setBodyContent(rtb, text);
+        }
+
+        private void setBodyContent(RichTextBox rtb, string text)
+        {
+            rtb.AppendText(text);
+            rtb.AppendText(Environment.NewLine);
+        }
+        private void setBodyStyle(RichTextBox rtb)
+        {
+            rtb.SelectionFont = new Font("Tahoma", 12, FontStyle.Bold);
+            rtb.SelectionColor = System.Drawing.Color.Brown;
+        }
+
+        private void setTextArea(string message, string htmlColor)
+        {
+            richTextBox1.SelectionFont = new Font("Tahoma", 20, FontStyle.Bold);
+            richTextBox1.SelectionColor = System.Drawing.Color.Black;
+            richTextBox1.BorderStyle = BorderStyle.Fixed3D;
+            richTextBox1.BackColor = System.Drawing.ColorTranslator.FromHtml(htmlColor);
+            richTextBox1.AppendText(message);
         }
     }
 }
