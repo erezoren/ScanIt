@@ -6,6 +6,8 @@ using MySql.Data.MySqlClient;
 using MySql.Data;
 using MySql.Data.Types;
 using System.Windows.Forms;
+using ScanIt.Logic;
+
 namespace ScanIt
 {
     class QueryExec
@@ -80,9 +82,12 @@ namespace ScanIt
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                MessageBox.Show(ex.Message);
-                return -1;
+                conn.Close();
+                throw new QueryExecException(ex.Message);
             }
         }
     }
+
+   
+   
 }

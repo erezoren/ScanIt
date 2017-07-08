@@ -37,6 +37,7 @@
     <ApplicationIcon>Icons8-Ios7-Ecommerce-Barcode-Scanner.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll</HintPath>
     </Reference>
@@ -44,7 +45,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -55,6 +55,7 @@
     <Compile Include="Logic\ComboboxItem.cs" />
     <Compile Include="Logic\Constants.cs" />
     <Compile Include="Logic\Invitor.cs" />
+    <Compile Include="Logic\QueryExecException.cs" />
     <Compile Include="Logic\ScanItProperties.cs" />
     <Compile Include="Logic\QueryExec.cs" />
     <Compile Include="Logic\Queries.cs" />
