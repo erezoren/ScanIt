@@ -137,6 +137,21 @@ namespace ScanIt
                 {
                     //Processing row
                     string[] fields = parser.ReadFields();
+                    if (fields.Length!=3)
+                    {
+                        MessageBox.Show("פורמט הקובץ שגוי"
+                            +Environment.NewLine
+                          +"הפורמט הנכון הוא"
+                           + Environment.NewLine
+                          + "'ברקוד', 'שם המוזמן, 'שם המזמין'"
+                           + Environment.NewLine
+                          + "מופרדים בפסיקים"
+                           + Environment.NewLine
+                            + "CSV file" , "Faulty file format",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        freezUnfreezForm(false);
+                        return;
+                    }
                     string invitorName = fields[0];
                     string inviedName = fields[1];
                     string barcode = fields[2];

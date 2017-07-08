@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -12,6 +14,9 @@ namespace ScanIt
 {
     public partial class מוזמנים : Form
     {
+        private SerialPort _serialPort;
+        private delegate void SetTextDeleg(string text);
+
         private QueryExec queryExec = new QueryExec();
         private Form2 frm2 = new Form2();
         public מוזמנים()
@@ -19,6 +24,25 @@ namespace ScanIt
             InitializeComponent();
             this.ActiveControl = textBarcode;
 
+        /*    _serialPort = new SerialPort("COM1", 19200, Parity.None, 8, StopBits.One);
+            _serialPort.Handshake = Handshake.None;
+            _serialPort.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            _serialPort.ReadTimeout = 500;
+            _serialPort.WriteTimeout = 500;
+            _serialPort.Open();
+            */
+
+        }
+
+        void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Thread.Sleep(500);
+            string data = _serialPort.ReadLine();
+            this.BeginInvoke(new SetTextDeleg(si_DataReceived), new object[] { data });
+        }
+        private void si_DataReceived(string data)
+        {
+            textBarcode.Text = data.Trim();
         }
 
 

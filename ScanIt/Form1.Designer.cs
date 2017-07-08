@@ -71,7 +71,7 @@
             // btnAddForm
             // 
             this.btnAddForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddForm.BackColor = System.Drawing.Color.Khaki;
+            this.btnAddForm.BackColor = System.Drawing.Color.Beige;
             this.btnAddForm.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnAddForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddForm.Location = new System.Drawing.Point(73, 383);
